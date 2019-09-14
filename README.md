@@ -1,19 +1,41 @@
 # Bitcoin Service Check
 
 Simple command-line utility to check status of a Bitcoin node
-Based on code from @ayeowch/bitnodes project
+
+Uses Bitcoin protocol code from [@ayeowch/bitnodes](https://github.com/ayeowch/bitnodes) repo
 
 ## Setup
 
-Basic node testing
-```bash
+For clearnet testing, need Python2 + pip:
+```
 apt-get install -y python-pip
-pip install -r requirements.txt
-./bitcoin-service-check.py 1.2.3.4 8333
 ```
 
-Additionally, for *.onion node testing:
-```bash
+For *.onion node testing, also need:
+```
 apt-get install -y tor
-./bitcoin-service-check.py foo.onion 8333
+```
+
+Install deps using pip:
+```
+pip install -r requirements.txt
+```
+
+## Usage
+
+./bitcoin-service-check.py [IP address or *.onion] [port]
+
+Node is online:
+```
+% ./bitcoin-service-check.py jiuuuislm7ooesic.onion 8333
+594893
+/Satoshi:0.18.1/
+```
+
+Node is unreachable:
+```
+% ./bitcoin-service-check.py jiuuuislm7foobar.onion 8333
+Socket error: timed out: ('jiuuuislm7foobar.onion', 8333)
+$ echo $?
+1
 ```
