@@ -39,3 +39,28 @@ Socket error: timed out: ('jiuuuislm7foobar.onion', 8333)
 $ echo $?
 1
 ```
+
+# Monitoring Bitcoin node with Icinga2
+
+## Install check_bitcoin command
+```
+install -c -m 755 bitcoin-service-check.py /usr/lib/nagios/plugins/check_bitcoin
+```
+
+## Install check_bitcoin.conf in icinga2 configuration
+```
+cp check_bitcoin.conf /etc/icinga2/conf.d/
+```
+
+## Set bitcoinaddress and bitcoinport in icinga2 host definitions 
+```
+object Host "22tg6ufbwz6o3l2u.onion" {
+  import "generic-host"
+
+  // add the following 2 lines to host defintion:
+
+  vars.bitcoinaddress = "22tg6ufbwz6o3l2u.onion"
+  vars.bitcoinport = "8333"
+
+}
+```
