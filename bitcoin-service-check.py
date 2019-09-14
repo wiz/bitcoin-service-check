@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# protocol.py - Bitcoin protocol access for Bitnodes.
+# Bitcoin Service Check
+# Simple command-line utility to check status of a Bitcoin node
 #
+# Copyright (c) wiz <j@wiz.biz>
 # Copyright (c) Addy Yeow Chin Heng <ayeowch@gmail.com>
 #
 # Permission is hereby granted, free of charge, to any person obtaining
@@ -966,30 +968,31 @@ def main():
 
     conn = Connection(to_addr, to_services=to_services)
     try:
-        print("open")
+        #print("open")
         conn.open()
 
-        print("handshake")
+        #print("handshake")
         handshake_msgs = conn.handshake()
 
-        print("getaddr")
+        #print("getaddr")
         addr_msgs = conn.getaddr()
+
+        #print("close")
+        conn.close()
 
     except (ProtocolError, ConnectionError, socket.error) as err:
         print("{}: {}".format(err, to_addr))
+        return 1
 
-    print("close")
-    conn.close()
+    print(handshake_msgs[0]['height'])
+    print(handshake_msgs[0]['user_agent'])
+
+    return 0
 
     if len(handshake_msgs) > 0:
         services = handshake_msgs[0].get('services', 0)
         if services != to_services:
             print('services ({}) != {}'.format(services, to_services))
-
-    print(handshake_msgs)
-    print(addr_msgs)
-
-    return 0
 
 
 if __name__ == '__main__':
