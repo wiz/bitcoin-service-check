@@ -767,7 +767,10 @@ class Connection(object):
         self.from_addr = from_addr
         self.serializer = Serializer(**conf)
         self.socket_timeout = conf.get('socket_timeout', SOCKET_TIMEOUT)
-        self.proxy = None
+        if to_addr[0].endswith(".onion"):
+            self.proxy = ("127.0.0.1", 9050)
+        else:
+            self.proxy = None
         self.socket = None
         self.bps = deque([], maxlen=128)  # bps samples for this connection
 
