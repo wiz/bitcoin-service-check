@@ -767,7 +767,7 @@ class Connection(object):
         self.from_addr = from_addr
         self.serializer = Serializer(**conf)
         self.socket_timeout = conf.get('socket_timeout', SOCKET_TIMEOUT)
-        self.proxy = conf.get('proxy', None)
+        self.proxy = None
         self.socket = None
         self.bps = deque([], maxlen=128)  # bps samples for this connection
 
@@ -955,7 +955,7 @@ class Connection(object):
 
 
 def main():
-    to_addr = ("88.99.167.175", PORT)
+    to_addr = (sys.argv[1], int(sys.argv[2]))
     to_services = TO_SERVICES
 
     handshake_msgs = []
