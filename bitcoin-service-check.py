@@ -967,6 +967,9 @@ def main():
     addr_msgs = []
 
     conn = Connection(to_addr, to_services=to_services)
+
+    # record time
+    start = time.time()
     try:
         #print("open")
         conn.open()
@@ -984,11 +987,15 @@ def main():
         print("CRITICAL - {}: {}".format(err, to_addr))
         return 2
 
+    # record time
+    end = time.time()
+    elapsed = str(end - start)
+
     # print blockheight + version
     if len(handshake_msgs) > 0:
         height = str(handshake_msgs[0]['height'])
         ua = handshake_msgs[0]['user_agent']
-        print("OK - " + height + " " + ua)
+        print("OK - " + height + " " + ua + " "+elapsed[:4]+"s|time=" + elapsed)
         services = handshake_msgs[0].get('services', 0)
 #        if services != to_services:
 #            print('services ({}) != {}'.format(services, to_services))
