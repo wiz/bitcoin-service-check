@@ -982,7 +982,7 @@ def main():
 
     except (ProtocolError, ConnectionError, socket.error) as err:
         print("CRITICAL - {}: {}".format(err, to_addr))
-        return 1
+        return 2
 
     # print blockheight + version
     if len(handshake_msgs) > 0:
