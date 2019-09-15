@@ -989,13 +989,15 @@ def main():
 
     # record time
     end = time.time()
-    elapsed = str(end - start)
+    elapsed = (end - start - 2)
+    ms = str(elapsed * 1000)
+    msp = ms.split('.')[0] + '.' + ms.split('.')[1][:1]
 
     # print blockheight + version
     if len(handshake_msgs) > 0:
         height = str(handshake_msgs[0]['height'])
         ua = handshake_msgs[0]['user_agent']
-        print("OK - " + height + " " + ua + " "+elapsed[:4]+"s|time=" + elapsed)
+        print("OK - " + height + " " + ua + " "+msp+"ms|time=" + msp)
         services = handshake_msgs[0].get('services', 0)
 #        if services != to_services:
 #            print('services ({}) != {}'.format(services, to_services))
