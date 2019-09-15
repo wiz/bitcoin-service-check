@@ -981,18 +981,19 @@ def main():
         conn.close()
 
     except (ProtocolError, ConnectionError, socket.error) as err:
-        print("{}: {}".format(err, to_addr))
+        print("CRITICAL - {}: {}".format(err, to_addr))
         return 1
 
-    print(handshake_msgs[0]['height'])
-    print(handshake_msgs[0]['user_agent'])
+    # print blockheight + version
+    if len(handshake_msgs) > 0:
+        height = str(handshake_msgs[0]['height'])
+        ua = handshake_msgs[0]['user_agent']
+        print("OK - " + height + " " + ua)
+        services = handshake_msgs[0].get('services', 0)
+#        if services != to_services:
+#            print('services ({}) != {}'.format(services, to_services))
 
     return 0
-
-    if len(handshake_msgs) > 0:
-        services = handshake_msgs[0].get('services', 0)
-        if services != to_services:
-            print('services ({}) != {}'.format(services, to_services))
 
 
 if __name__ == '__main__':
