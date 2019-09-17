@@ -1,4 +1,4 @@
-# Bitcoin Service Check for Nagios/Icinga
+# Bitcoin Service Check for Icinga2
 
 Simple command-line utility to check status of a Bitcoin node
 
@@ -17,17 +17,22 @@ For *.onion node testing, also need:
 sudo apt-get install -y tor
 ```
 
-## Install check_bitcoin command
+## Install check_bitcoin command in nagios plugins folder
 ```
 install -c -m 755 bitcoin-service-check.py /usr/lib/nagios/plugins/check_bitcoin
 ```
 
-## Install check_bitcoin.conf in icinga2 configuration
+## Install configuration files in icinga2 conf folder
 ```
-cp check_bitcoin.conf /etc/icinga2/conf.d/
+cp icinga2/*.conf /etc/icinga2/conf.d/
 ```
 
-## Set bitcoinaddress (and optionally bitcoinport) in host object 
+## Edit configuration to add Slack incoming webhook URL
+```
+vi /etc/icinga2/conf.d/slack.conf
+```
+
+## Add host objects with bitcoinaddress (and optionally bitcoinport)
 ```
 object Host "22tg6ufbwz6o3l2u.onion" {
     import "bitcoin-node"
