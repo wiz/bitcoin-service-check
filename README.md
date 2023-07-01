@@ -6,10 +6,10 @@ Uses Bitcoin protocol code from [@ayeowch/bitnodes](https://github.com/ayeowch/b
 
 ## Setup
 
-For clearnet testing, need Python2 + pip for python deps:
+For clearnet testing, need Python3.7 + pip3.7 for python deps:
 ```
-sudo apt-get install -y python-pip
-sudo pip install -r requirements.txt
+sudo pkg install python37 py37-pip
+sudo pip-3.7 install -r requirements.txt
 ```
 
 For *.onion node testing, also need:
